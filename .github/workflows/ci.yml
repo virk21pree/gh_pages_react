@@ -14,13 +14,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install deps
         run: npm ci
 
       - name: Run tests
-        run: npm test --if-present
+        run: npm test -- --watchAll=false
 
       - name: Build app
         run: npm run build --if-present
