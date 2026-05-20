@@ -1,70 +1,215 @@
-# Getting Started with Create React App
+# gh_pages_react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React application migrated from Create React App (CRA) to **Vite** for faster development, cleaner dependency management, and improved performance.
+
+This project uses:
+
+- React 18
+- Vite
+- Vitest
+- GitHub Pages deployment
+- GitHub Actions CI
+- Branch protection + PR workflow
+
+## Development URL
+
+Local development server:
+
+```text
+http://localhost:5173/gh_pages_react/
+```
+
+Production GitHub Pages:
+
+```text
+https://<your-github-username>.github.io/gh_pages_react/
+```
+
+---
+
+## Project Setup
+
+Clone the repository:
+
+```bash
+git clone <repo-url>
+cd gh_pages_react
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
 
 ## Available Scripts
 
-In the project directory, you can run:
+### Start development server
 
-### `npm start`
+```bash
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the Vite development server.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Open:
 
-### `npm test`
+```text
+http://localhost:5173/gh_pages_react/
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The page automatically reloads when changes are made.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Run tests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm test
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Runs Vitest:
 
-### `npm run eject`
+```bash
+vitest --run
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Create production build
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Builds optimized production assets into:
 
-## Learn More about this
+```text
+dist/
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Preview production build locally
 
-### Code Splitting
+```bash
+npm run preview
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Starts a local preview server using the production build.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Deploy to GitHub Pages
 
-### Making a Progressive Web App
+```bash
+npm run deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Deployment process:
 
-### Advanced Configuration
+```text
+npm run build
+↓
+creates dist/
+↓
+gh-pages publishes dist/
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Continuous Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+GitHub Actions automatically validates:
 
-### `npm run build` fails to minify
+- dependency installation
+- tests
+- production build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Workflow:
+
+```text
+.github/workflows/ci.yml
+```
+
+CI triggers:
+
+- Push to `main`
+- Pull requests to `main`
+- Manual workflow execution
+
+---
+
+## Branch Protection
+
+Recommended repository settings:
+
+- Require pull requests before merge
+- Require status checks to pass
+- Require branches to be up to date
+
+Required check:
+
+```text
+build-test
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+  App.jsx
+  App.test.jsx
+  index.jsx
+  App.css
+  index.css
+  setupTests.js
+
+index.html
+vite.config.js
+```
+
+---
+
+## Migration Notes
+
+This project was migrated from:
+
+```text
+Create React App
+```
+
+to:
+
+```text
+Vite
+```
+
+Key changes:
+
+- removed `react-scripts`
+- replaced webpack dev server
+- moved `public/index.html` → root `index.html`
+- renamed JSX files to `.jsx`
+- switched build output from `build/` → `dist/`
+- migrated tests to Vitest
+- updated GitHub Pages deployment
+
+---
+
+## Notes
+
+Ignored generated folders:
+
+```text
+/node_modules
+/dist
+/.vite
+/coverage
+```
+
+This keeps Git history clean and avoids committing generated files.
